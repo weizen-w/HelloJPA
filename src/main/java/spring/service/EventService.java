@@ -26,18 +26,18 @@ public class EventService {
   }
 
   public Event findById(Integer id) {
-    return eventRepository.findById(id);
+    return eventRepository.findById(id).isPresent()? eventRepository.findById(id).get():null;
   }
 
   public Event update(Event event) {
     return eventRepository.save(event);
   }
 
-  public void remove(Integer id) {
-    eventRepository.remove(id);
-  }
-
   public Event delete(Integer id) {
-    return eventRepository.remove(id);
+    Event event = findById(id);
+    if (event != null) {
+      eventRepository.delete(event);
+    }
+    return event;
   }
 }
