@@ -1,12 +1,11 @@
 package spring.domain;
 
+import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 12/09/2023 HelloHibernate
+ * 19/09/2023 HelloJPA
  *
  * @author Wladimir Weizen
  */
@@ -23,14 +22,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "events")
-public class Event {
+@Table(name = "cities")
+public class City {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
-  private String name;
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "city_id")
-  private City city;
+  private String titel;
+  @OneToMany(mappedBy = "city")
+  List<Event> events;
 }
